@@ -1,6 +1,8 @@
-# chat-room
+# 聊天室
 
-a demo chat room by socket.io
+基于`socket.io`的聊天室
+
+## [demo](https://besianzhu.github.io/bubbling/)
 
 ## use
 
