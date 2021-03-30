@@ -15,13 +15,13 @@ io.on("connection", (socket) => {
 
   //login
   socket.on("login", (name, callback) => {
-    if (name.trim().length === 0) {
+    if (name.trim().length === 0 || connectedUser.indexOf(name) > -1) {
       return;
     }
     callback(true);
     userName = name;
     connectedUser.push(userName);
-    // console.log(connectedUser);
+    console.log(connectedUser, 'connectedUser');
     updateUserName();
   });
   //receive chat message
@@ -38,9 +38,8 @@ io.on("connection", (socket) => {
   });
   //disconnect
   socket.on("disconnect", () => {
-    console.log("disconneted");
     connectedUser.splice(connectedUser.indexOf(userName), 1);
-    console.log(connectedUser);
+    console.log(connectedUser, 'disconneted');
     updateUserName();
   });
 

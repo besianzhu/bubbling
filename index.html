@@ -13,85 +13,111 @@
     <meta name="viewpoint" content="width-device-width, initial-scale=1.0" />
     <title>聊天室</title>
     <style>
-      #messages {
+      .list {
         max-height: 600px;
         overflow: auto;
+      }
+      #copyright {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     </style>
   </head>
   <body>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">开始BB</a>
-      </div>
-    </nav>
-    <div class="row">
-      <!-- connected user list -->
-      <div class="col s4">
-        <h3 class="flow-text center teal-text text-lighten-1">在线人员</h3>
-        <ul class="collection" id="user-list"></ul>
-      </div>
-      <!-- message area -->
-      <div id="chat-col" class="col s8" style="display: none">
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text" id="messages"></div>
-          <div class="card-action white">
-            <!-- message from -->
-            <form id="message-form">
-              <div class="input-field">
-                <textarea
-                  type="text"
-                  id="textarea"
-                  class="materialize-textarea"
-                ></textarea>
-                <label class="active" for="textarea">消息</label>
-              </div>
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center">开始BB</a>
+        </div>
+      </nav>
+    </header>
 
-              <div class="right-align">
-                <button
-                  class="btn waves-effect waves-light btn-small"
-                  type="submit"
-                  name="action"
-                >
-                  发送
-                  <i class="material-icons right">send</i>
-                </button>
-              </div>
-            </form>
+    <main>
+      <div class="row">
+        <!-- message area -->
+        <div id="chat-col" class="col s12 m9 l8" style="display: none">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text list" id="messages"></div>
+            <div class="card-action white">
+              <!-- message from -->
+              <form id="message-form">
+                <div class="input-field">
+                  <textarea
+                    type="text"
+                    id="textarea"
+                    class="materialize-textarea"
+                  ></textarea>
+                  <label class="active" for="textarea">消息</label>
+                </div>
+
+                <div class="right-align">
+                  <button
+                    class="btn waves-effect waves-light btn-small"
+                    type="submit"
+                    name="action"
+                  >
+                    发送
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- login area -->
-      <div id="login-col" class="col s8" style="display: block">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title teal-text text-lighten-1">请输入花名</span>
-            <!-- login form -->
-            <form id="login-form">
-              <div class="input-field">
-                <input type="text" id="name" />
-                <label class="active" for="name">花名</label>
-              </div>
-              <div class="right-align">
-                <button
-                  class="btn waves-effect waves-light btn-small"
-                  type="submit"
-                  name="action"
-                >
-                  登录 <i class="material-icons right">chat</i>
-                </button>
-              </div>
-            </form>
+        <!-- login area -->
+        <div id="login-col" class="col s12 m9 l8" style="display: block">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title teal-text text-lighten-1"
+                >请输入花名</span
+              >
+              <!-- login form -->
+              <form id="login-form">
+                <div class="input-field">
+                  <input type="text" id="name" />
+                  <label class="active" for="name">花名</label>
+                </div>
+                <div class="right-align">
+                  <button
+                    class="btn waves-effect waves-light btn-small"
+                    type="submit"
+                    name="action"
+                  >
+                    登录 <i class="material-icons right">chat</i>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+        <!-- connected user list -->
+        <div class="col s12 m3 l4">
+          <h3 class="flow-text center teal-text text-lighten-1">在线人员</h3>
+          <ul class="collection list" id="user-list"></ul>
+        </div>
       </div>
-    </div>
+    </main>
+
+    <footer>
+        <div id="copyright"></div>
+    </footer>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script>
+
+      // copyright func
+      function cpy() {
+        const cp = document.getElementById('copyright')
+        const year = new Date().getFullYear()
+        cp.innerText = 'Copyright © 2020 - ' + year +' BesianZhu. All Rights Reserved. 版权所有'
+      }
+
       (function () {
+        cpy();
         //get element
         const loginForm = document.getElementById("login-form");
         const messageForm = document.getElementById("message-form");
