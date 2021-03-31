@@ -2,8 +2,6 @@
 
 基于`socket.io`的聊天室
 
-## [demo](https://besianzhu.github.io/bubbling/)
-
 ## use
 
 ```javascript
